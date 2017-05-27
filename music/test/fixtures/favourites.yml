@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person: MyString
+  spotify_id: MyString
+  name: MyString
+  preview_url: MyString
+
+two:
+  person: MyString
+  spotify_id: MyString
+  name: MyString
+  preview_url: MyString

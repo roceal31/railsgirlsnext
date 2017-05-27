@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @favourite.person %>
+</p>
+
+<p>
+  <strong>Spotify:</strong>
+  <%= @favourite.spotify_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @favourite.name %>
+</p>
+
+<p>
+  <strong>Preview url:</strong>
+  <%= @favourite.preview_url %>
+</p>
+
+<%= link_to 'Edit', edit_favourite_path(@favourite) %> |
+<%= link_to 'Back', favourites_path %>
