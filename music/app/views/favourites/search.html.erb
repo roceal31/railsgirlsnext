@@ -1,0 +1,45 @@
+<h1>Search for Favourite Songs</h1>
+
+<%= form_tag(search_favourites_path, method: :get, class: 'form-horizontal') do %>
+	<div class="form-group">
+		<%= label_tag(:query, "Search for:", class: 'col-md-2 control-label') %>
+		<div class="col-md-8">
+		<%= text_field_tag(:query, params[:q], class: 'form-control') %>
+		</div>
+
+		<div class="col-md-2">
+			<%= submit_tag("Search", class: 'btn btn-default') %>
+		</div>
+	</div>
+<% end %>
+
+<% if @results.present? %>
+	<h2>Songs Matching "<%=@query%>"</h2>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Artist(s)</th>
+				<th>Album</th>
+				<th>Preview</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+	<% @results.each do |track| %>
+		<tr>
+			<td><%= track["name"] %></td>
+			<td><%= track["artists"].map{ |artist| artist["name"] }.join(", ") %></td>
+			<td><%= track["album"]["name"]%></td>
+			<td>
+				<% if track["preview_url"].present? %>
+				<a href=<%= "#{track['preview_url']}" %> target="_blank">Listen</a>
+				<% end %>
+			</td>
+			<td><%= link_to "Add Favourite", new_favourite_path %></td>
+		</tr>
+	<% end %>
+		</tbody>
+	</table>
+<% end %>
