@@ -18,27 +18,26 @@
 	</div>
 <% end %>
 
-<div class="container">
+<% if @all_favourites.present? %>
+
+<div class="container-fluid">
 	<div class="row">
+		<% [@first_person, @second_person].each do |person|%>
 		<div class="col-md-6">
-			<% if @first_person_favourites.present? %>
-			<h2><%= @first_person %>'s Favourites</h2>
+			<h2><%= person %>'s Favourites
 			<ul>
-				<% @first_person_favourites.each do |favourite| %>
-				<li><%= favourite.name %></li>
-				<% end %>
-			</ul>
+			<% @all_favourites.find_all{ |f| f.person == person }.each do |favourite| %>
+				<% @is_shared = @intersection.any?{ |f| f == favourite.spotify_id} #%>
+				<li class="<%= 'shared' if @is_shared %>">
+					<% if @is_shared %>
+						<span class="glyphicon glyphicon-star"></span>
+					<% end %>
+					<%= favourite.name %>
+				</li>
 			<% end %>
-		</div>
-		<div class="col-md-6">
-			<% if @second_person_favourites.present? %>
-			<h2><%= @second_person %>'s Favourites</h2>
-			<ul>
-				<% @second_person_favourites.each do |favourite| %>
-				<li><%= favourite.name %></li>
-				<% end %>
 			</ul>
-			<% end %>
 		</div>
+		<% end %>
 	</div>
 </div>
+<% end %>

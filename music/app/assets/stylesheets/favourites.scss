@@ -1,3 +1,22 @@
 // Place all the styles related to the Favourites controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.shared {
+	color:#0033cc;
+	font-weight: bold;
+}
+
+header .navbar .container-fluid {
+	position:relative;
+}
+
+header .navbar-image {
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+header .navbar-brand {
+	padding-left: 65px;
+}

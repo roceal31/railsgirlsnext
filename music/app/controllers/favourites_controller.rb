@@ -44,9 +44,14 @@ class FavouritesController < ApplicationController
 
     return unless (@first_person.present? and @second_person.present?)
 
-    #@all_favourites = Favourite.where(person: [@first_person, @second_person]).order(:spotify_id)
-    @first_person_favourites = Favourite.where(person: @first_person)
-    @second_person_favourites = Favourite.where(person: @second_person)
+    @all_favourites = Favourite.where(person: [@first_person, @second_person]).order(:spotify_id)
+    @intersection = []
+
+    @intersection_objects = @all_favourites.select("spotify_id, person").find_all { |f| @all_favourites.find{ |f2| f2.spotify_id == f.spotify_id && f2.person != f.person} }
+    if !@intersection_objects.nil?
+      @intersection_objects.each_entry{ |f| @intersection |= [f.spotify_id]  }
+    end
+
   end
 
   # POST /favourites
