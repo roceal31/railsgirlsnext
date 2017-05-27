@@ -1,0 +1,44 @@
+<h1>Compare Favourites</h1>
+
+<%= form_tag(compare_favourites_path, method: :get, class: 'form-horizontal') do %>
+	<div class="form-group">
+		<%= label_tag(:first_person, "First Person:", class: 'col-md-2 control-label') %>
+		<div class="col-md-8">
+			<%= text_field_tag(:first_person, params[:first_person], class: 'form-control') %>
+		</div>
+	</div>
+	<div class="form-group">
+		<%= label_tag(:second_person, "Second Person:", class: 'col-md-2 control-label') %>
+		<div class="col-md-8">
+			<%= text_field_tag(:second_person, params[:second_person], class: 'form-control') %>
+		</div>
+		<div class="col-md-2">
+			<%= submit_tag("Compare", class: 'btn btn-default') %>
+		</div>
+	</div>
+<% end %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<% if @first_person_favourites.present? %>
+			<h2><%= @first_person %>'s Favourites</h2>
+			<ul>
+				<% @first_person_favourites.each do |favourite| %>
+				<li><%= favourite.name %></li>
+				<% end %>
+			</ul>
+			<% end %>
+		</div>
+		<div class="col-md-6">
+			<% if @second_person_favourites.present? %>
+			<h2><%= @second_person %>'s Favourites</h2>
+			<ul>
+				<% @second_person_favourites.each do |favourite| %>
+				<li><%= favourite.name %></li>
+				<% end %>
+			</ul>
+			<% end %>
+		</div>
+	</div>
+</div>

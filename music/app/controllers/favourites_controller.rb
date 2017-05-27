@@ -38,6 +38,17 @@ class FavouritesController < ApplicationController
     @results = result_set["tracks"]["items"]
   end
 
+  def compare
+    @first_person = params[:first_person]
+    @second_person = params[:second_person]
+
+    return unless (@first_person.present? and @second_person.present?)
+
+    #@all_favourites = Favourite.where(person: [@first_person, @second_person]).order(:spotify_id)
+    @first_person_favourites = Favourite.where(person: @first_person)
+    @second_person_favourites = Favourite.where(person: @second_person)
+  end
+
   # POST /favourites
   # POST /favourites.json
   def create

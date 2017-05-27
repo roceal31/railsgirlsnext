@@ -4,9 +4,14 @@
 	<div class="form-group">
 		<%= label_tag(:query, "Search for:", class: 'col-md-2 control-label') %>
 		<div class="col-md-8">
-		<%= text_field_tag(:query, params[:q], class: 'form-control') %>
+		<%= text_field_tag(:query, params[:query], class: 'form-control') %>
 		</div>
-
+	</div>
+	<div class="form-group">
+		<%= label_tag(:person, "Your name:", class: 'col-md-2 control-label') %>
+		<div class="col-md-8">
+		<%= text_field_tag(:person, params[:person], class: 'form-control') %>
+		</div>
 		<div class="col-md-2">
 			<%= submit_tag("Search", class: 'btn btn-default') %>
 		</div>
@@ -23,21 +28,36 @@
 				<th>Artist(s)</th>
 				<th>Album</th>
 				<th>Preview</th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 	<% @results.each do |track| %>
 		<tr>
-			<td><%= track["name"] %></td>
+			<td>
+				<span class="btn-group">
+				<%= button_to favourites_path({
+					favourite: {
+						person: params[:person],
+						spotify_id: track["id"],
+						name: track["name"],
+						preview_url: track["preview_url"]
+					},
+					method: :post}),
+					{class: 'btn btn-primary btn-sm'} do %>
+					<span class="glyphicon glyphicon-star-empty"></span>
+				<% end %>
+				</span>
+				<%= track["name"] %>
+			</td>
 			<td><%= track["artists"].map{ |artist| artist["name"] }.join(", ") %></td>
 			<td><%= track["album"]["name"]%></td>
 			<td>
 				<% if track["preview_url"].present? %>
-				<a href=<%= "#{track['preview_url']}" %> target="_blank">Listen</a>
+				<a href=<%= "#{track['preview_url']}" %> target="_blank">Listen
+					<span class="glyphicon glyphicon-play-circle"></span>
+				</a>
 				<% end %>
 			</td>
-			<td><%= link_to "Add Favourite", new_favourite_path %></td>
 		</tr>
 	<% end %>
 		</tbody>

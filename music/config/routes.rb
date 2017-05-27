@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :favourites do
   	collection do
   		get 'search'
+  		get 'compare'
   	end
   end
 
