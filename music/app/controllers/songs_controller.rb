@@ -9,5 +9,9 @@ class SongsController < ApplicationController
 
   	# This lets me dump out a binary value
   	#render json: json
+
+  	# Capture results as a hash
+  	result_set = JSON.parse(json)
+  	@results = result_set["tracks"]["items"]
   end
 end

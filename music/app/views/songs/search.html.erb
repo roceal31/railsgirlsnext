@@ -7,3 +7,13 @@
 	<%= submit_tag("Search") %>
 <% end %>
 
+<% if @results.present? %>
+<h2>Song Matches</h2>
+<ul>
+	<% @results.each do |song| %>
+	<li>
+		<%= song["name"] %> (<%= song["artists"].map{ |artist| artist["name"] }.join(", ") %>)
+	</li>
+	<% end %>
+</ul>
+<% end %>
